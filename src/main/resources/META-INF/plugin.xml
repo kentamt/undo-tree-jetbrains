@@ -1,0 +1,44 @@
+<idea-plugin>
+    <id>dev.undotree.jetbrains</id>
+    <name>Undo Tree</name>
+    <version>0.2.0</version>
+    <vendor>Undo Tree contributors</vendor>
+    <description><![CDATA[
+        Branching undo history adapted from Toby Cubitt's Emacs undo-tree 0.8.2.
+        Keep abandoned redo branches, restore any recorded state, preview differences,
+        and navigate a graphical or Emacs-style text tree in IntelliJ IDEA and PyCharm.
+        Distributed under GPL-3.0-or-later.
+    ]]></description>
+    <idea-version since-build="251"/>
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="dev.undotree.UndoTreeStartup"/>
+        <toolWindow id="Undo Tree" anchor="right" icon="/icons/undoTree.svg"
+                    factoryClass="dev.undotree.UndoTreeToolWindow"/>
+        <applicationConfigurable id="dev.undotree.settings" displayName="Undo Tree"
+                                 parentId="tools" instance="dev.undotree.UndoTreeConfigurable"/>
+    </extensions>
+    <actions>
+        <group id="UndoTree.Group" text="Undo Tree" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <action id="UndoTree.Show" class="dev.undotree.UndoTreeActions$Show" text="Undo Tree: Visualize History">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt Z"/>
+                <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt Z"/>
+            </action>
+            <action id="UndoTree.Undo" class="dev.undotree.UndoTreeActions$Undo" text="Undo Tree: Undo">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt U"/>
+                <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt U"/>
+            </action>
+            <action id="UndoTree.Redo" class="dev.undotree.UndoTreeActions$Redo" text="Undo Tree: Redo">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt R"/>
+                <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt R"/>
+            </action>
+            <separator/>
+            <action id="UndoTree.PreviousBranch" class="dev.undotree.UndoTreeActions$PreviousBranch" text="Undo Tree: Previous Redo Branch"/>
+            <action id="UndoTree.NextBranch" class="dev.undotree.UndoTreeActions$NextBranch" text="Undo Tree: Next Redo Branch"/>
+            <action id="UndoTree.UndoBranch" class="dev.undotree.UndoTreeActions$UndoBranch" text="Undo Tree: Undo to Branch Point"/>
+            <action id="UndoTree.RedoBranch" class="dev.undotree.UndoTreeActions$RedoBranch" text="Undo Tree: Redo to Branch Point"/>
+        </group>
+    </actions>
+</idea-plugin>

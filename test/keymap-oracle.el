@@ -1,0 +1,23 @@
+;;; SPDX-License-Identifier: GPL-3.0-or-later
+;;; Read the keymaps of unmodified Emacs undo-tree, including minor-mode overrides.
+(require 'undo-tree)
+(require 'json)
+(let ((keys '(("<up>" . "UP") ("<down>" . "DOWN") ("<left>" . "LEFT") ("<right>" . "RIGHT")
+              ("p" . "P") ("n" . "N") ("b" . "B") ("f" . "F")
+              ("C-p" . "control P") ("C-n" . "control N") ("C-b" . "control B") ("C-f" . "control F")
+              ("C-<up>" . "control UP") ("C-<down>" . "control DOWN")
+              ("M-{" . "alt shift OPEN_BRACKET") ("M-}" . "alt shift CLOSE_BRACKET")
+              ("t" . "T") ("d" . "D") ("s" . "S") ("q" . "Q") ("C-q" . "control Q")
+              ("," . "COMMA") ("." . "PERIOD") ("<" . "shift COMMA") (">" . "shift PERIOD")
+              ("<prior>" . "PAGE_UP") ("<next>" . "PAGE_DOWN") ("RET" . "ENTER")))
+      result)
+  (dolist (mode '(normal selection))
+    (let (bindings)
+      (dolist (key keys)
+        (let* ((sequence (kbd (car key)))
+               (command (or (and (eq mode 'selection) (lookup-key undo-tree-visualizer-selection-mode-map sequence))
+                            (lookup-key undo-tree-visualizer-mode-map sequence))))
+          (when command
+            (push (cons (cdr key) (if (symbolp command) (symbol-name command) (prin1-to-string (car (last command))))) bindings))))
+      (push (cons mode (nreverse bindings)) result)))
+  (princ (json-encode (nreverse result))))

@@ -1,0 +1,7 @@
+.gradle/
+.intellijPlatform/
+.idea/
+*.iml
+build/
+__pycache__/
+.DS_Store
