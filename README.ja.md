@@ -1,5 +1,7 @@
 # Undo Tree for JetBrains
 
+![Undo Tree for JetBrainsの操作デモ](docs/images/example_jb.gif)
+
 Toby Cubittの **Emacs undo-tree 0.8.2** をIntelliJ IDEA・PyCharmへ移植したプラグインです。
 Undo後の別編集で以前のRedo枝を保持し、**ASCIIツリーとEmacsキーを既定**として履歴を操作できます。
 

@@ -1,5 +1,7 @@
 # Undo Tree for JetBrains
 
+![Undo Tree for JetBrains demo](docs/images/example_jb.gif)
+
 A port of Toby Cubitt's **Emacs undo-tree 0.8.2** for IntelliJ IDEA and PyCharm.
 Keep abandoned redo branches and navigate them in an ASCII tree, with Emacs
 visualizer keys enabled by default.
